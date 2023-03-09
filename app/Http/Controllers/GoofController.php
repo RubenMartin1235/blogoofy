@@ -12,7 +12,7 @@ class GoofController extends Controller
      */
     public function index()
     {
-        //
+        return view('goofs.index');
     }
 
     /**
@@ -28,7 +28,14 @@ class GoofController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated=$request->validate([
+            'title'=>'required|string|max:255',
+            'body'=>'required|string|max:255',
+        ]);
+
+        $request->user()->pios()->create($validated);
+
+        return redirect(route('goofs.index'));
     }
 
     /**

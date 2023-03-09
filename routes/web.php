@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GoofController;
 use Illuminate\Support\Facades\Route;
+
+use App\Models\Goof;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +31,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('goofs', GoofController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
+/*
+Route::get('/goofs', function () {
+    $goofs = Goof::all();
+    return view('goofs.index', compact('goofs'));
+});
+*/
+
 require __DIR__.'/auth.php';
+
+
+/*
+Route::get('/goofs', function () {
+    $goofs = Goof::all();
+    return view('goofs.index', compact('goofs'));
+});
+*/

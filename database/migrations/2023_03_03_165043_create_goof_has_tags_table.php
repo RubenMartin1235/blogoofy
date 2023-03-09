@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('goof_has_tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('goof_id')->unsigned();
-            $table->integer('tag_id')->unsigned();
+            $table->foreignId('goof_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('tag_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

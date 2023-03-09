@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
         // Los usuarios necesitarán los roles previamente generados
         $this->call(UserSeeder::class);
 
+        $this->call(TagSeeder::class);
+        $this->call(GoofSeeder::class);
+        $this->call(CommentSeeder::class);
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
