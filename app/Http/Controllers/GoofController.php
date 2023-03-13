@@ -12,7 +12,8 @@ class GoofController extends Controller
      */
     public function index()
     {
-        return view('goofs.index');
+        $goofs = Goof::all();
+        return view('goofs.index', compact('goofs'));
     }
 
     /**
@@ -33,7 +34,7 @@ class GoofController extends Controller
             'body'=>'required|string|max:255',
         ]);
 
-        $request->user()->pios()->create($validated);
+        $request->user()->goofs()->create($validated);
 
         return redirect(route('goofs.index'));
     }
@@ -43,7 +44,9 @@ class GoofController extends Controller
      */
     public function show(Goof $goof)
     {
-        //
+        return view('goofs.show',
+            ['goof'=>$goof]
+        );
     }
 
     /**

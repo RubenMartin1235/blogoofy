@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GoofController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Goof;
+use App\Models\Comment;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,21 +34,13 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('goofs', GoofController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'show', 'store'])
     ->middleware(['auth', 'verified']);
-/*
-Route::get('/goofs', function () {
-    $goofs = Goof::all();
-    return view('goofs.index', compact('goofs'));
-});
-*/
+
+Route::resource('comments', CommentController::class)
+    ->only(['index', 'show', 'store'])
+    ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
 
 
-/*
-Route::get('/goofs', function () {
-    $goofs = Goof::all();
-    return view('goofs.index', compact('goofs'));
-});
-*/
