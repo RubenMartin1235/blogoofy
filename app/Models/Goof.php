@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Tag;
+use App\Models\Rating;
 
 class Goof extends Model
 {
@@ -29,6 +30,9 @@ class Goof extends Model
     }
     function tags(){
         return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+    function ratings() {
+        return $this->hasMany(Rating::class);
     }
 
     function dispatch(){}

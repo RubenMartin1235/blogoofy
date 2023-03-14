@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::resource('goofs', GoofController::class)
-    ->only(['index', 'show', 'store'])
+    ->only(['index', 'show', 'store', 'edit', 'update', 'delete'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('comments', CommentController::class)

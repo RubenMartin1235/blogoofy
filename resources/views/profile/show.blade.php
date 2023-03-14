@@ -41,8 +41,8 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
                             </div>
                             <div class="flex flex-col justify-evenly items-center border-2 border-gray-200 p-2">
-                                <x-input-label for="goofcount" :value="__('Number of ratings received:')" />
-                                <p id="goofcount" name="goofcount" class="text-3xl">{{$user->goofs()->count()}}</p>
+                                <x-input-label for="userrating" :value="__('Average post rating:')" />
+                                <p id="userrating" name="userrating" class="text-3xl"></p>
                                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
                             </div>
                         </div>

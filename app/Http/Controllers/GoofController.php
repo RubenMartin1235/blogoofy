@@ -54,7 +54,9 @@ class GoofController extends Controller
      */
     public function edit(Goof $goof)
     {
-        //
+        return view('goofs.edit',
+            ['goof'=>$goof]
+        );
     }
 
     /**
@@ -62,7 +64,14 @@ class GoofController extends Controller
      */
     public function update(Request $request, Goof $goof)
     {
-        //
+        $validated=$request->validate([
+            'title'=>'required|string|max:255',
+            'body'=>'required|string|max:255',
+        ]);
+
+        $request->user()->goofs()->update($validated);
+
+        return redirect(route('goofs.index'));
     }
 
     /**

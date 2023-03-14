@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Goof;
 use App\Models\Role;
 use App\Models\Comment;
+use App\Models\Rating;
 
 class User extends Authenticatable
 {
