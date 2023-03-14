@@ -1,11 +1,6 @@
 <x-app-layout>
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-        <div class="mt-4 mb-4">
-            <div class="media">
-                <a class="text-gray-800 text-xl" href="{{ route('goofs.show', $goof) }}">{{$goof->title}}</a>
-                <p class="text-gray-500 text-sm">{{$goof->body}}</p>
-            </div>
-        </div>
+        @include('goofs.partials.goof')
         <form method="POST" action="{{ route('comments.store') }}">
             @csrf
             <textarea
