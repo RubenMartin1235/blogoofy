@@ -16,8 +16,6 @@
             <x-input-error :messages="$errors->get('message')" class="mt-2" />
             <x-primary-button class="mt-4">{{ __('Goof') }}</x-primary-button>
         </form>
-        @foreach ($goofs as $goof)
-            @include('goofs.partials.goof')
-        @endforeach
+        @include('goofs.partials.gooflist')
     </div>
 </x-app-layout>
