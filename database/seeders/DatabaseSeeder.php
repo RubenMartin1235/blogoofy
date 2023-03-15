@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TagSeeder::class);
         $this->call(GoofSeeder::class);
         $this->call(CommentSeeder::class);
+        $this->call(RatingSeeder::class);
 
         // \App\Models\User::factory(10)->create();
 

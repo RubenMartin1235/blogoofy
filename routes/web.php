@@ -38,13 +38,19 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('goofs', GoofController::class)
     ->only(['index', 'show', 'store', 'edit', 'update', 'remove', 'destroy'])
-    ->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified'])
+;
 
 Route::get('/goofs/{goof}/delete/', [GoofController::class, 'delete'])->name('goofs.delete');
 
 Route::resource('comments', CommentController::class)
-    ->only(['index', 'show', 'store'])
-    ->middleware(['auth', 'verified']);
+    ->only(['index', 'show', 'store', 'edit', 'update', 'remove', 'destroy'])
+    ->middleware(['auth', 'verified'])
+;
+
+Route::post('/goofs/{goof}/comment/', [CommentController::class, 'store'])->name('comments.store');
+
+Route::get('/comments/{comment}/delete/', [CommentController::class, 'delete'])->name('comments.delete');
 
 
 

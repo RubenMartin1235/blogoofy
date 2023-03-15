@@ -12,7 +12,7 @@ class GoofController extends Controller
      */
     public function index()
     {
-        $goofs = Goof::all();
+        $goofs = Goof::all()->sortByDesc('created_at');
         return view('goofs.index', compact('goofs'));
     }
 
@@ -42,10 +42,14 @@ class GoofController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Goof $goof)
+    public function show(Request $request, Goof $goof)
     {
+        $comments = $goof->comments()->get();
         return view('goofs.show',
-            ['goof'=>$goof]
+            [
+                'goof'=>$goof,
+                'comments'=>$comments
+            ]
         );
     }
 

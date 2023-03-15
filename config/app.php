@@ -212,6 +212,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Goof' => App\Models\Goof::class,
         'Comment' => App\Models\Comment::class,
+        'Rating' => App\Models\Rating::class,
         'Carbon' => Carbon\Carbon::class
     ])->toArray(),
 

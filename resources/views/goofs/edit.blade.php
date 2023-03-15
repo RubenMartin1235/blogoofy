@@ -8,13 +8,13 @@
                 name="title"
                 type="text"
                 placeholder="{{ __('Enter a title for your goofy message here') }}"
-                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
+                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4 text-lg"
                 value="{{ $goof->title }}"
             >
             <textarea
                 name="body"
                 placeholder="{{ __('Enter your goofy message here') }}"
-                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-sm"
             >{{ $goof->body }}</textarea>
             <x-input-error :messages="$errors->get('message')" class="mt-2" />
             <div class="mt-4">

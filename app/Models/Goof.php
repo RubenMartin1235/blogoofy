@@ -26,13 +26,13 @@ class Goof extends Model
         return $this->belongsTo(User::class);
     }
     function comments(){
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'goof_id');
     }
     function tags(){
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
     function ratings() {
-        return $this->hasMany(Rating::class);
+        return $this->hasMany(Rating::class, 'goof_id');
     }
 
     function dispatch(){}

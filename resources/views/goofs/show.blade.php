@@ -2,7 +2,8 @@
     <div class="max-w-4xl mx-auto p-1 sm:p-2 lg:p-3">
         <div class="mt-3 mb-2 bg-white shadow p-1">
             @include('goofs.partials.goof')
-            <form method="POST" action="{{ route('comments.store') }}">
+            @include('comments.partials.commentlist')
+            <form method="POST" action="{{ route('comments.store', $goof) }}">
                 @csrf
                 <textarea
                     name="body"

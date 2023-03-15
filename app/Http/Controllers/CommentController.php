@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Goof;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -26,9 +27,17 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Goof $goof)
     {
-        //
+        $validated=$request->validate([
+            'body'=>'required|string|max:255',
+        ]);
+        $comment = Comment::make($validated);
+        $comment->goof()->associate($goof);
+        $comment->user()->associate($request->user());
+        $comment->save();
+
+        return redirect(route('goofs.index'));
     }
 
     /**
@@ -36,7 +45,11 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return view('comments.show',
+            [
+                'comment'=>$comment,
+            ]
+        );
     }
 
     /**

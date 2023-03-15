@@ -50,7 +50,7 @@ class User extends Authenticatable
         return $this->hasMany(Goof::class, 'user_id');
     }
     public function comments() {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'user_id');
     }
     public function ratings() {
         return $this->hasMany(Rating::class);
