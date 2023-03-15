@@ -16,10 +16,10 @@ class Comment extends Model
         'user_id'
     ];
 
-    function user(){
-        return $this->belongsTo(User::class)->withTimestamps();
-    }
     function goof(){
         return $this->belongsTo(Goof::class)->withTimestamps();
+    }
+    function user(){
+        return $this->belongsTo(User::class)->withTimestamps();
     }
 }

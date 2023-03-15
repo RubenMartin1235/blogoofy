@@ -52,8 +52,11 @@ class GoofController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Goof $goof)
+    public function edit(Request $request, Goof $goof)
     {
+        if ($request->user() <> $goof->user) {
+            return redirect(route('goofs.index'));
+        }
         return view('goofs.edit',
             ['goof'=>$goof]
         );
@@ -64,21 +67,40 @@ class GoofController extends Controller
      */
     public function update(Request $request, Goof $goof)
     {
+        if ($request->user() <> $goof->user) {
+            return redirect(route('goofs.index'));
+        }
+
+        $goof->save();
+
         $validated=$request->validate([
             'title'=>'required|string|max:255',
             'body'=>'required|string|max:255',
         ]);
 
-        $request->user()->goofs()->update($validated);
+        $goof->update($validated);
 
         return redirect(route('goofs.index'));
+    }
+
+    public function delete(Request $request, Goof $goof)
+    {
+        if ($request->user() <> $goof->user) {
+            return redirect(route('goofs.index'));
+        }
+        return view('goofs.delete',
+            ['goof'=>$goof]
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Goof $goof)
+    public function destroy(Request $request, Goof $goof)
     {
-        //
+        if ($request->user() == $goof->user) {
+            $goof->delete();
+        }
+        return redirect(route('goofs.index'));
     }
 }
