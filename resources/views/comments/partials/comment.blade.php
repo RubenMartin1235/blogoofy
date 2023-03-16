@@ -27,7 +27,7 @@
                     @endif
                 </div>
             </div>
-            <p class="text-gray-600 text-sm mt-2">{{$comment->body}}</p>
+            <p class="text-gray-600 text-sm mt-2">{!! nl2br(e($comment->body)) !!}</p>
         </div>
     </div>
 

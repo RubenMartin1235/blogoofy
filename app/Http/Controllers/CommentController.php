@@ -38,7 +38,7 @@ class CommentController extends Controller
         $comment->user()->associate($request->user());
         $comment->save();
 
-        return redirect(route('goofs.index'));
+        return $this->redirectToOriginOfComment($comment);
     }
 
     /**

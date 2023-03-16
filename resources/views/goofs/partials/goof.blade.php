@@ -11,7 +11,7 @@
                     <a class="text-gray-700 text-sm basis-auto" href="{{ route('profile.show', $goof->user) }}">{{$goof->user->name}}</a>
                 </div>
             </div>
-            <p class="text-gray-600 text-sm mt-2">{{$goof->body}}</p>
+            <p class="text-gray-600 text-sm mt-2">{!! nl2br(e($goof->body)) !!}</p>
             <div class="self-end text-right mt-2">
                 <p class="text-gray-400 text-xs">
                     {{ __('Created: ') . Carbon::parse($goof->created_at)->format('Y-m-d H:i') }}

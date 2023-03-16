@@ -101,9 +101,9 @@ class GoofController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Goof $goof)
+    public function destroy(Goof $goof)
     {
-        if ($request->user() == $goof->user) {
+        if (Auth::user() == $goof->user) {
             $goof->delete();
         }
         return redirect(route('goofs.index'));
