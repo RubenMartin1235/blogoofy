@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Goof;
 use Illuminate\Http\Request;
+use Auth;
 
 class GoofController extends Controller
 {
@@ -44,7 +45,7 @@ class GoofController extends Controller
      */
     public function show(Request $request, Goof $goof)
     {
-        $comments = $goof->comments()->get();
+        $comments = $goof->comments()->get()->sortByDesc('created_at');
         return view('goofs.show',
             [
                 'goof'=>$goof,
@@ -56,9 +57,9 @@ class GoofController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Goof $goof)
+    public function edit(Goof $goof)
     {
-        if ($request->user() <> $goof->user) {
+        if (Auth::user() <> $goof->user) {
             return redirect(route('goofs.index'));
         }
         return view('goofs.edit',
@@ -71,7 +72,7 @@ class GoofController extends Controller
      */
     public function update(Request $request, Goof $goof)
     {
-        if ($request->user() <> $goof->user) {
+        if (Auth::user() <> $goof->user) {
             return redirect(route('goofs.index'));
         }
 
@@ -87,9 +88,9 @@ class GoofController extends Controller
         return redirect(route('goofs.index'));
     }
 
-    public function delete(Request $request, Goof $goof)
+    public function delete(Goof $goof)
     {
-        if ($request->user() <> $goof->user) {
+        if (Auth::user() <> $goof->user) {
             return redirect(route('goofs.index'));
         }
         return view('goofs.delete',

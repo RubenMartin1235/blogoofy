@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Goof;
 use Illuminate\Http\Request;
+use Auth;
 
 class CommentController extends Controller
 {
@@ -57,7 +58,12 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        if (Auth::user() <> $comment->user) {
+            return redirect(route('goofs.show', $comment->goof()));
+        }
+        return view('comments.edit',
+            ['comment'=>$comment]
+        );
     }
 
     /**
@@ -65,14 +71,43 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        if (Auth::user() <> $comment->user) {
+            return $this->redirectToOriginOfComment($comment);
+        }
+
+        $comment->save();
+        $validated=$request->validate([
+            'body'=>'required|string|max:255',
+        ]);
+        $comment->update($validated);
+        return $this->redirectToOriginOfComment($comment);
+    }
+
+    /**
+     * Show the form for removing the specified resource from storage.
+     */
+    public function delete(Comment $comment)
+    {
+        if (Auth::user() <> $comment->user) {
+            return $this->redirectToOriginOfComment($comment);
+        }
+        return view('comments.delete',
+            ['comment'=>$comment]
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request, Comment $comment)
     {
-        //
+        if (Auth::user() == $comment->user) {
+            $comment->delete();
+        }
+        return $this->redirectToOriginOfComment($comment);
+    }
+
+    function redirectToOriginOfComment(Comment $comment) {
+        return redirect(route('goofs.show', $comment->goof));
     }
 }
