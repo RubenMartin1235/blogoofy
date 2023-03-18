@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rating;
+use App\Models\Goof;
 use Illuminate\Http\Request;
+use Auth;
 
 class RatingController extends Controller
 {
@@ -26,9 +28,28 @@ class RatingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Goof $goof)
     {
-        //
+        if (Auth::user() == $goof->user) {
+            return redirect(route('goofs.show', $goof));
+        }
+        $validated=$request->validate([
+            'rating'=>'required|integer|max:5',
+        ]);
+        $rating_old = $goof->ratings()->where('user_id',Auth::user()->id)->first();
+        if ($rating_old !== null) {
+            return $this->update($request, $rating_old);
+        }
+        //dd($rating_old);
+        //dd($request->input('rating-score'));
+        //dd($validated);
+
+        $rating = Rating::make($validated);
+        $rating->goof()->associate($goof);
+        $rating->user()->associate($request->user());
+        $rating->save();
+
+        return $this->redirectToOriginalGoof($rating);
     }
 
     /**
@@ -52,7 +73,15 @@ class RatingController extends Controller
      */
     public function update(Request $request, Rating $rating)
     {
-        //
+        if (Auth::user() <> $rating->user || Auth::user() == $rating->goof->user) {
+            return $this->redirectToOriginalGoof($rating);
+        }
+        $rating->save();
+        $validated=$request->validate([
+            'rating'=>'required|integer|max:5',
+        ]);
+        $rating->update($validated);
+        return $this->redirectToOriginalGoof($rating);
     }
 
     /**
@@ -61,5 +90,9 @@ class RatingController extends Controller
     public function destroy(Rating $rating)
     {
         //
+    }
+
+    function redirectToOriginalGoof(Rating $rating) {
+        return redirect(route('goofs.show', $rating->goof));
     }
 }

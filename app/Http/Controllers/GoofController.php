@@ -46,10 +46,12 @@ class GoofController extends Controller
     public function show(Request $request, Goof $goof)
     {
         $comments = $goof->comments()->get()->sortByDesc('created_at');
+        $user_rating = $goof->ratings()->where('user_id',Auth::user()->id)->first();
         return view('goofs.show',
             [
                 'goof'=>$goof,
-                'comments'=>$comments
+                'comments'=>$comments,
+                'user_rating'=>$user_rating
             ]
         );
     }

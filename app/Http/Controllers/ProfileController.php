@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
+use App\Models\Rating;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +27,15 @@ class ProfileController extends Controller
     {
         $profile = User::where('id',$request->profile)->first();
         $goofs = $profile->goofs();
+        $userrating_received = Rating::whereIn('goof_id', $goofs->get('id'));
+        $userrating_received_avg = $userrating_received->avg('rating');
+        $userrating_received_count = $userrating_received->count();
+        //dd($userrating);
         return view('profile.show', [
             'user' => $profile,
             'goofs' => $goofs->get(),
+            'userrating_received_avg' => $userrating_received_avg,
+            'userrating_received_count' => $userrating_received_count,
         ]);
     }
 

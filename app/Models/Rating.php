@@ -17,9 +17,9 @@ class Rating extends Model
     ];
 
     function goof(){
-        return $this->belongsTo(Goof::class)->withTimestamps();
+        return $this->belongsTo(Goof::class, 'goof_id');
     }
     function user(){
-        return $this->belongsTo(User::class)->withTimestamps();
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
