@@ -3,6 +3,14 @@
         <div class="mt-3 mb-2 bg-white shadow p-1">
             @include('goofs.partials.goof')
 
+            <div class="flex flex-row gap-x-2 gap-y-1 px-4">
+                @foreach ($tags as $tag)
+                    <a class="bg-black text-sm text-neutral-50 px-1 py-0.5 rounded-md" href="">
+                        {{$tag->tagname}}
+                    </a>
+                @endforeach
+            </div>
+
             @unless (Auth::user() == $goof->user)
                 <div class="flex flex-row mt-2 p-4 gap-x-4">
                     <p class="text-gray-600 text-md">{{__('Give your rating here:')}}</p>

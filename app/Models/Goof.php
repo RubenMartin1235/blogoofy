@@ -29,10 +29,30 @@ class Goof extends Model
         return $this->hasMany(Comment::class, 'goof_id');
     }
     function tags(){
-        return $this->belongsToMany(Tag::class)->withTimestamps();
+        return $this->belongsToMany(Tag::class, 'goof_has_tags')->withTimestamps();
     }
     function ratings() {
         return $this->hasMany(Rating::class, 'goof_id');
+    }
+    public function hasAnyTag($tags) {
+        if (is_array($tags)) {
+            foreach ($tags as $tag) {
+                if ($this->hasRole($tag)) {
+                    return true;
+                }
+            }
+        } else {
+            if ($this->hasRole($tags)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public function hasTag($tag) {
+        if ($this->tags()->where('tagname', $tag)->first()) {
+            return true;
+        }
+        return false;
     }
 
     function dispatch(){}

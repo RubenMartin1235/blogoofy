@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Goof;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -46,12 +47,14 @@ class GoofController extends Controller
     public function show(Request $request, Goof $goof)
     {
         $comments = $goof->comments()->get()->sortByDesc('created_at');
+        $tags = $goof->tags;
         $user_rating = $goof->ratings()->where('user_id',Auth::user()->id)->first();
         return view('goofs.show',
             [
                 'goof'=>$goof,
                 'comments'=>$comments,
-                'user_rating'=>$user_rating
+                'user_rating'=>$user_rating,
+                'tags'=>$tags,
             ]
         );
     }

@@ -14,6 +14,6 @@ class Tag extends Model
     ];
 
     public function goofs(){
-        return $this->belongsToMany(Goof::class)->withTimestamps();
+        return $this->belongsToMany(Goof::class, 'goof_has_tags')->withTimestamps();
     }
 }
