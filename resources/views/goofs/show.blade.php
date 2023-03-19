@@ -5,10 +5,17 @@
 
             <div class="flex flex-row gap-x-2 gap-y-1 px-4">
                 @foreach ($tags as $tag)
-                    <a class="bg-black text-sm text-neutral-50 px-1 py-0.5 rounded-md" href="">
-                        {{$tag->tagname}}
-                    </a>
+                    <div class="flex flex-row gap-x-2 gap-y-1">
+                        <a class="bg-black text-sm text-neutral-50 px-1 py-0.5 rounded-md" href="{{ route('tags.show',$tag) }}">
+                            {{$tag->tagname}}
+                        </a>
+                    </div>
                 @endforeach
+                @if (Auth::user() == $goof->user)
+                    <a class="bg-white text-sm border-2 border-gray-900 px-1 py-0.5 rounded-md" href="{{ route('tags.add',$goof) }}">
+                        +
+                    </a>
+                @endif
             </div>
 
             @unless (Auth::user() == $goof->user)

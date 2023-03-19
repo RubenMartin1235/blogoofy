@@ -34,15 +34,16 @@ class Goof extends Model
     function ratings() {
         return $this->hasMany(Rating::class, 'goof_id');
     }
+
     public function hasAnyTag($tags) {
         if (is_array($tags)) {
             foreach ($tags as $tag) {
-                if ($this->hasRole($tag)) {
+                if ($this->hasTag($tag)) {
                     return true;
                 }
             }
         } else {
-            if ($this->hasRole($tags)) {
+            if ($this->hasTag($tags)) {
                 return true;
             }
         }

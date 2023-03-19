@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GoofController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Goof;
@@ -43,6 +44,7 @@ Route::resource('goofs', GoofController::class)
     ->middleware(['auth', 'verified'])
 ;
 Route::get('/goofs/{goof}/delete/', [GoofController::class, 'delete'])->name('goofs.delete');
+Route::get('/goofs/search/', [GoofController::class, 'search'])->name('goofs.search');
 
 // comments
 Route::resource('comments', CommentController::class)
@@ -59,6 +61,13 @@ Route::resource('ratings', RatingController::class)
 ;
 Route::post('/ratings/{goof}/rating/', [RatingController::class, 'store'])->name('ratings.store');
 
+// tags
+Route::resource('tags', TagController::class)
+->only(['index', 'show', 'store', 'edit', 'update', 'remove', 'destroy'])
+->middleware(['auth', 'verified'])
+;
+Route::get('/tags/{goof}/add/', [TagController::class, 'add'])->name('tags.add');
+Route::put('/tags/{goof}/attach/', [TagController::class, 'attach'])->name('tags.attach');
 
 require __DIR__.'/auth.php';
 
