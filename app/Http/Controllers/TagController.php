@@ -14,7 +14,12 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::all()->sortByDesc('created_at');
+        return view('tags.index',
+            [
+                'tags'=>$tags,
+            ]
+        );
     }
 
     /**

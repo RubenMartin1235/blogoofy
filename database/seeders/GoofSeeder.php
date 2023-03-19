@@ -19,6 +19,7 @@ class GoofSeeder extends Seeder
         $user_whoami = User::where('name', 'Whoami')->first();
 
         $tag_copypasta = Tag::where('tagname', 'copypasta')->first();
+        $tag_forgor = Tag::where('tagname', 'forgor')->first();
 
         $goof = new Goof();
         $goof->title = 'RAP DE CENA';
@@ -32,5 +33,7 @@ class GoofSeeder extends Seeder
         $goof->body = 'I forgor what I was going to write here... 💀';
         $goof->user_id = $user_whoami->id;
         $goof->save();
+        $goof->tags()->attach($tag_copypasta);
+        $goof->tags()->attach($tag_forgor);
     }
 }

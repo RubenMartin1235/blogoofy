@@ -5,6 +5,7 @@ use App\Http\Controllers\GoofController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Goof;
@@ -30,6 +31,28 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard/admin/users', [AdminDashboardController::class, 'show_users'])->name('dashboard.admin.users');
+
+    Route::get('/dashboard/admin/users/edit/{user}', [AdminDashboardController::class, 'edit_user'])->name('dashboard.admin.users.edit');
+    Route::patch('/dashboard/admin/users/edit/{user}', [AdminDashboardController::class, 'update_user'])->name('dashboard.admin.users.update');
+
+    Route::get('/dashboard/admin/users/delete/{user}', [AdminDashboardController::class, 'delete_user'])->name('dashboard.admin.users.delete');
+    Route::delete('/dashboard/admin/users/destroy/{user}', [AdminDashboardController::class, 'destroy_user'])->name('dashboard.admin.users.destroy');
+
+    Route::get('/dashboard/admin/goofs', [AdminDashboardController::class, 'show_goofs'])->name('dashboard.admin.goofs');
+
+    Route::get('/dashboard/admin/goofs/edit/{goof}', [AdminDashboardController::class, 'edit_goof'])->name('dashboard.admin.goofs.edit');
+    Route::put('/dashboard/admin/goofs/edit/{goof}', [AdminDashboardController::class, 'update_goof'])->name('dashboard.admin.goofs.update');
+
+    Route::get('/dashboard/admin/goofs/delete/{goof}', [AdminDashboardController::class, 'delete_goof'])->name('dashboard.admin.goofs.delete');
+    Route::delete('/dashboard/admin/goofs/destroy/{goof}', [AdminDashboardController::class, 'destroy_goof'])->name('dashboard.admin.goofs.destroy');
+
+
+    Route::get('/dashboard/admin/tags', [AdminDashboardController::class, 'show_tags'])->name('dashboard.admin.tags');
+    Route::get('/dashboard/admin/ratings', [AdminDashboardController::class, 'show_ratings'])->name('dashboard.admin.ratings');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');

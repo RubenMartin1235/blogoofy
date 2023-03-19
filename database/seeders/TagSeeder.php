@@ -16,5 +16,9 @@ class TagSeeder extends Seeder
         $tag = new Tag();
         $tag->tagname = "copypasta";
         $tag->save();
+
+        $tag = new Tag();
+        $tag->tagname = "forgor";
+        $tag->save();
     }
 }
