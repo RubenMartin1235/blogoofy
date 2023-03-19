@@ -16,14 +16,14 @@
             <x-input-error :messages="$errors->get('message')" class="mt-2" />
             <x-primary-button class="mt-4">{{ __('Goof') }}</x-primary-button>
         </form>
-        <form method="GET" action="{{ route('goofs.search') }}" class="flex flex-row gap-x-2 items-start my-4">
+        <form method="GET" action="{{ route('goofs.index') }}" class="flex flex-row gap-x-2 items-start my-4">
             @csrf
             <input
                 name="searchtags"
                 type="text"
                 placeholder="{{ __('Search tags here') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                :value="old('search')"
+                :value="old('searchtags')"
             >
             <x-input-error :messages="$errors->get('message')" class="mt-2" />
             <x-primary-button class="flex flex-row gap-x-2">

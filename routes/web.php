@@ -44,7 +44,7 @@ Route::resource('goofs', GoofController::class)
     ->middleware(['auth', 'verified'])
 ;
 Route::get('/goofs/{goof}/delete/', [GoofController::class, 'delete'])->name('goofs.delete');
-Route::get('/goofs/search/', [GoofController::class, 'search'])->name('goofs.search');
+//Route::get('/goofs/search/', [GoofController::class, 'search'])->name('goofs.search');
 
 // comments
 Route::resource('comments', CommentController::class)

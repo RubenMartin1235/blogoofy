@@ -12,9 +12,25 @@ class GoofController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $goofs = Goof::all()->sortByDesc('created_at');
+        $goofs;
+        $searchtags_arrstr = false;
+        if (strlen(trim($request->get('searchtags'))) > 0) {
+            $searchtags_arrstr = array_map('trim', explode(',', $request->get('searchtags')));
+        }
+        if ($searchtags_arrstr) {
+            $searchtags = Tag::whereIn('tagname',$searchtags_arrstr)->pluck('id');
+            //$goofs = Goof::with(['tags'])->whereIn('goof_has_tags.tag_id', $searchtags);
+            $goofs = Goof::orWhereHas('tags', function ($query) use ($searchtags) {
+                $query->whereIn('tag_id', $searchtags);
+            })->get();
+            //dd($searchtags);
+            //dd($goofs);
+        } else {
+            $goofs = Goof::all()->sortByDesc('created_at');
+        }
+
         return view('goofs.index', compact('goofs'));
     }
 
