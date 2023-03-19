@@ -44,6 +44,10 @@ class TagController extends Controller
         }
         //dd($goof->tags);
         $tagnames_new = array_map('trim', explode(',', $request->get('tagnames')));
+        $tagnames_deleted = $goof->tags()->whereNotIn('tagname',$tagnames_new)->pluck('tag_id');
+        //$tags_detached = Tag::whereIn('tagname',$tagnames_deleted)->get();
+        //dd($tagnames_deleted);
+        $goof->tags()->detach($tagnames_deleted);
         foreach ($tagnames_new as $ntag_name) {
             $ntag = Tag::where('tagname',$ntag_name)->first();
             if ($ntag === null) {
