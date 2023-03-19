@@ -12,6 +12,7 @@
                     <th class="p-2">ID</th>
                     <th class="p-2">Username</th>
                     <th class="p-2">Email</th>
+                    <th class="p-2">Roles</th>
                     <th class="p-2">Operations</th>
                 </tr>
             </thead>
@@ -21,6 +22,7 @@
                         <td>{{$user->id}}</td>
                         <td><a class="text-gray-900 basis-auto" href="{{ route('profile.show', $user) }}">{{$user->name}}</a></td>
                         <td>{{$user->email}}</td>
+                        <td>{{implode(',', $user->roles()->pluck('name')->toArray())}}</td>
                         <td class="flex flex-row justify-evenly">
                             <a class="text-gray-900 basis-auto" href="{{ route('dashboard.admin.users.edit', $user) }}">{{__('Edit')}}</a>
                             <a class="text-gray-900 basis-auto" href="{{ route('dashboard.admin.users.delete', $user) }}">{{__('Delete')}}</a>
