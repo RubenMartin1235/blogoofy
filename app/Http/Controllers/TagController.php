@@ -22,7 +22,7 @@ class TagController extends Controller
      */
     public function add(Goof $goof)
     {
-        if (Auth::user() <> $goof->user) {
+        if (!Auth::user()->hasAnyRole(['loader','admin'])) {
             return redirect(route('goofs.show', $goof));
         }
         $tags = $goof->tags;
@@ -39,7 +39,7 @@ class TagController extends Controller
 
     public function attach(Request $request, Goof $goof)
     {
-        if (Auth::user() <> $goof->user) {
+        if (!Auth::user()->hasAnyRole(['loader','admin'])) {
             return redirect(route('goofs.show', $goof));
         }
         //dd($goof->tags);
@@ -58,17 +58,7 @@ class TagController extends Controller
             }
         }
         return redirect(route('goofs.show', $goof));
-        /*
-        foreach ($newtag_names as $ntag_name) {
-            $ntag;
-            if (($ntag = Tag::where('tagnames',$ntag_name)->first()) === null) {
-                $ntag = $this->crtag($request, $ntag_name);
-            }
-            $goof->tags()->attach($ntag);
-        }
-        dd($newtags);
-        */
-        // not sure how much longer this pyrrhic battle can go on for.
+        // I'm not sure how much longer this pyrrhic battle can go on for.
     }
 
     function crtag(Request $request, $tagname)
@@ -90,6 +80,9 @@ class TagController extends Controller
         $validated=$request->validate([
             'tagname'=>'required|string|max:255',
         ]);
+        $tag = Tag::make($validated);
+        $tag->save();
+        return back()->withInput();
     }
 
     /**

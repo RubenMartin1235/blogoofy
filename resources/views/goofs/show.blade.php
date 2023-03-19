@@ -11,7 +11,7 @@
                         </a>
                     </div>
                 @endforeach
-                @if (Auth::user() == $goof->user)
+                @if (Auth::user()->hasAnyRole(['loader','admin']))
                     <a class="bg-white text-sm border-2 border-gray-900 px-1 py-0.5 rounded-md" href="{{ route('tags.add',$goof) }}">
                         +
                     </a>
