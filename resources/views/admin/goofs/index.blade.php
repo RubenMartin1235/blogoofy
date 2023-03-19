@@ -20,7 +20,7 @@
                 @foreach ($goofs as $goof)
                     <tr>
                         <td>{{$goof->id}}</td>
-                        <td>{{$goof->title}}</td>
+                        <td><a class="text-gray-900 basis-auto" href="{{ route('goofs.show', $goof) }}">{{$goof->title}}</a></td>
                         <td><a class="text-gray-900 basis-auto" href="{{ route('profile.show', $goof->user) }}">{{$goof->user->name . "(".$goof->user->id.")" }}</a></td>
                         <td>{{ Str::words($goof->body, 10, '...') }}</td>
                         <td class="flex flex-row justify-evenly">
