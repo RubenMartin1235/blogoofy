@@ -119,4 +119,57 @@ class AdminDashboardController extends Controller
         $goof->delete();
         return redirect(route('dashboard.admin.goofs'));
     }
+
+    // TAGS
+    public function show_tags(Request $request) {
+        if (!Auth::user()->hasRole('admin')) {
+            return redirect(route('dashboard'));
+        }
+        $tags = Tag::all();
+        return view('admin.tags.index',
+            [
+                'tags'=>$tags,
+            ]
+        );
+    }
+    public function edit_tag(Request $request, Tag $tag) {
+        if (!Auth::user()->hasRole('admin')) {
+            return redirect(route('dashboard'));
+        }
+        return view('admin.tags.edit', [
+            'tag' => $tag,
+        ]);
+    }
+
+    public function update_tag(Request $request, Tag $tag)
+    {
+        if (!Auth::user()->hasRole('admin')) {
+            return redirect(route('dashboard'));
+        }
+        $tag->save();
+        $validated=$request->validate([
+            'tagname'=>'required|string|max:255',
+        ]);
+        $tag->update($validated);
+
+        return redirect(route('dashboard.admin.tags'));
+    }
+
+    public function delete_tag(Request $request, Tag $tag) {
+        if (!Auth::user()->hasRole('admin')) {
+            return redirect(route('dashboard'));
+        }
+        return view('admin.tags.delete', [
+            'tag' => $tag,
+        ]);
+    }
+
+    public function destroy_tag(Request $request, Tag $tag)
+    {
+        if (!Auth::user()->hasRole('admin')) {
+            return redirect(route('dashboard'));
+        }
+        $tag->delete();
+        return redirect(route('dashboard.admin.tags'));
+    }
 }

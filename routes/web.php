@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/admin/users/delete/{user}', [AdminDashboardController::class, 'delete_user'])->name('dashboard.admin.users.delete');
     Route::delete('/dashboard/admin/users/destroy/{user}', [AdminDashboardController::class, 'destroy_user'])->name('dashboard.admin.users.destroy');
 
+
     Route::get('/dashboard/admin/goofs', [AdminDashboardController::class, 'show_goofs'])->name('dashboard.admin.goofs');
 
     Route::get('/dashboard/admin/goofs/edit/{goof}', [AdminDashboardController::class, 'edit_goof'])->name('dashboard.admin.goofs.edit');
@@ -51,6 +52,14 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/dashboard/admin/tags', [AdminDashboardController::class, 'show_tags'])->name('dashboard.admin.tags');
+
+    Route::get('/dashboard/admin/tags/edit/{tag}', [AdminDashboardController::class, 'edit_tag'])->name('dashboard.admin.tags.edit');
+    Route::put('/dashboard/admin/tags/edit/{tag}', [AdminDashboardController::class, 'update_tag'])->name('dashboard.admin.tags.update');
+
+    Route::get('/dashboard/admin/tags/delete/{tag}', [AdminDashboardController::class, 'delete_tag'])->name('dashboard.admin.tags.delete');
+    Route::delete('/dashboard/admin/tags/destroy/{tag}', [AdminDashboardController::class, 'destroy_tag'])->name('dashboard.admin.tags.destroy');
+
+
     Route::get('/dashboard/admin/ratings', [AdminDashboardController::class, 'show_ratings'])->name('dashboard.admin.ratings');
 });
 

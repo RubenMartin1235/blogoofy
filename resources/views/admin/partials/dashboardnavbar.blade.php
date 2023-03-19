@@ -14,9 +14,4 @@
             {{ __('Tags') }}
         </x-nav-link>
     </div>
-    <div class="space-x-8 sm:-my-px flex">
-        <x-nav-link :href="route('dashboard.admin.ratings')" :active="request()->routeIs('dashboard')" class="p-1">
-            {{ __('Ratings') }}
-        </x-nav-link>
-    </div>
 </div>
