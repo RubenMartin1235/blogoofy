@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
         $user = new User();
         $user->name = 'John Cena';
         $user->email = 'jcena@pescena.ce';
-        $user->password = bcrypt('tG9Uq6nB7eQ6VQR');
+        $user->password = bcrypt('sabrocena');
         $user->save();
         $user->roles()->attach($role_user);
 
